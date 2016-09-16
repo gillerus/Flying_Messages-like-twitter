@@ -27,13 +27,13 @@ class Users {
         return $this->username;
     }
 
-    public function setPassword($setPassword) {
-        $newHashedPassword = password_hash($setPassword, PASSWORD_BCRYPT);
-        $this->hashedPassword = $newHashedPassword;
+    public function getHashedPassword() {
         return $this->hashedPassword;
     }
 
-    public function getHashedPassword() {
+    public function setPassword($setPassword) {
+        $newHashedPassword = password_hash($setPassword, PASSWORD_BCRYPT);
+        $this->hashedPassword = $newHashedPassword;
         return $this->hashedPassword;
     }
 
@@ -133,4 +133,5 @@ class Users {
         }
         return true;
     }
+
 }

@@ -15,7 +15,7 @@ class DataBase {
         if ($conn->connect_error) {
             die("Poloczenie nieudane. Blad: " . $conn->connect_errno);
         } else {
-            echo "Polaczenie udane";
+//            echo "Polaczenie udane";
             return $conn;
         }
     }
