@@ -55,7 +55,7 @@ class Users {
             $result = $connection->query($sql);
 
             if ($result == true) {
-                $this->id = $connection->insert_id;
+                $this->id = $connection->insert_id; 
                 return true;
             }
         } else {

@@ -11,7 +11,7 @@ class Tweets {
         $this->id = -1;
         $this->user_id = "";
         $this->content = "";
-        $this->creation_date = date('Y-m-d H:i');
+        $this->creation_date = date('Y-m-d H:i:s');
     }
 
     public function getId() {
@@ -81,7 +81,7 @@ class Tweets {
 
     static public function loadAllTweets(mysqli $connection) {
 
-        $sql = "SELECT * FROM Tweets JOIN Users ON Tweets.user_id = Users.id";
+        $sql = "SELECT * FROM Tweets JOIN Users ON Tweets.user_id = Users.id ORDER BY creation_date DESC";
         $ret = [];
         $result = $connection->query($sql);
 
@@ -106,7 +106,7 @@ class Tweets {
 
     static public function loadTweetsByUserId(mysqli $connection, $user_id) {
 
-        $sql = "SELECT * FROM Tweets WHERE user_id=$user_id";
+        $sql = "SELECT * FROM Tweets JOIN Users ON Tweets.user_id = Users.id WHERE user_id=$user_id ORDER BY creation_date Desc";
         $ret = [];
         $result = $connection->query($sql);
 
@@ -120,6 +120,7 @@ class Tweets {
                 $loadedTweets->user_id = $row['user_id'];
                 $loadedTweets->content = $row['content'];
                 $loadedTweets->creation_date = $row['creation_date'];
+                $loadedTweets->username = $row['username'];
 
                 $ret[] = $loadedTweets;
             }

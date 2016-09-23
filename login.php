@@ -19,6 +19,7 @@ session_start();
                     <br/>--> zaloguj się </h4>
                 <form action="zaloguj.php" method="post">
                     Email: <input type="text" name="email">
+                    <!-- password pole txt żebym widział co testowo wpisuje, później do poprawy !!!!  -->
                     Password: <input type="text" name="password"><br><br>
                     <input type="submit" value="Zaloguj się">
                 </form>
@@ -36,7 +37,7 @@ session_start();
                     <input type="submit" value="Zarejestruj się">
                 </form>
                 </form>
-                <center>
-                    </div>
-                    </body>
-                    </html>
+            </center>
+        </div>
+    </body>
+</html>

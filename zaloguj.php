@@ -16,12 +16,12 @@ if (isset($email) && isset($password)) {
     $result = $conn->query($sql);
     $user_amm = $result->num_rows;
 
-
     $row = $result->fetch_assoc();
 
     if (password_verify($password, $row['hashedPassword'])) {
 
         $_SESSION['username'] = $row['username'];
+        $_SESSION['loggedUseerId'] = $row['id'];
 
         unset($_SESSION['error']);
         $result->free_result();
