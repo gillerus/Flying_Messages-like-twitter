@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}
+
 include 'src/database.php';
 include 'src/Users.php';
 include 'src/Tweets.php';
@@ -13,9 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = DataBase::conn();
     $newTweet->saveToDB($conn);
     DataBase::closeConn($conn);
-    
-    header('Location: index.php');
 
+    header('Location: index.php');
 }
 
 
@@ -23,8 +27,8 @@ echo '<div class="container">';
 echo "Witaj <b>" . $_SESSION['username'] . '</b>! Oto Twoje aktualne Tweety ;) | <a href="logout.php">Wyloguj</a><br/><br/>';
 
 $conn = DataBase::conn();
-
 $allTweets = Tweets::loadAllTweets($conn);
+DataBase::closeConn($conn);
 
 foreach ($allTweets as $row) {
     $displayContnet = $row->getContent();
@@ -32,11 +36,11 @@ foreach ($allTweets as $row) {
 
     echo $displayContnet;
     echo '<br/>';
-    echo 'Dodany przez uzytkownika: <a href="userProfil.php?id='.$row->getUserId().'">'.$row->username.'</a>' . " " . $craetionDate;
+    echo '<a href="tweet.php?id=' . $row->getId() . '">Skomentuj</a><br>';
+    echo 'Dodany przez uzytkownika: <a href="userProfil.php?id=' . $row->getUserId() . '">' . $row->username . '</a>' . " " . $craetionDate;
     echo '<br/><br/>';
 }
 echo '</div>';
-DataBase::closeConn($conn);
 ?>
 <!DOCTYPE html>
 

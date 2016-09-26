@@ -58,7 +58,7 @@ class Tweets {
 
     static public function loadTweetsById(mysqli $connection, $id) {
 
-        $sql = "SELECT * FROM Tweets WHERE id=$id";
+        $sql = "SELECT * FROM Users JOIN Tweets ON Tweets.user_id = Users.id WHERE Tweets.id=$id";
 
         $result = $connection->query($sql);
 
@@ -66,10 +66,11 @@ class Tweets {
 
             $row = $result->fetch_assoc();
 
-            $loadedTweets = new Users();
+            $loadedTweets = new Tweets();
 
             $loadedTweets->id = $row['id'];
             $loadedTweets->user_id = $row['user_id'];
+            $loadedTweets->username = $row['username'];
             $loadedTweets->content = $row['content'];
             $loadedTweets->creation_date = $row['creation_date'];
 
@@ -81,7 +82,7 @@ class Tweets {
 
     static public function loadAllTweets(mysqli $connection) {
 
-        $sql = "SELECT * FROM Tweets JOIN Users ON Tweets.user_id = Users.id ORDER BY creation_date DESC";
+        $sql = "SELECT * FROM Users JOIN Tweets ON Tweets.user_id = Users.id ORDER BY creation_date DESC";
         $ret = [];
         $result = $connection->query($sql);
 
