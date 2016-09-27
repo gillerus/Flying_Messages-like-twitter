@@ -9,6 +9,10 @@ if (!isset($_SESSION['username'])) {
 include 'src/database.php';
 include 'src/Tweets.php';
 
+echo "Profil uzytkownika: <b>" . $_SESSION['username'] . '</b>! Oto Twoje Tweety ;) | <a href="logout.php">Wyloguj</a><br/>';
+echo '<a href="messages.php">Skrzynka pocztowa</a><br/><br/>';
+echo '<br>';
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $conn = DataBase::conn();
     $userTweet = Tweets::loadTweetsByUserId($conn, $_GET['id']);

@@ -69,7 +69,7 @@ class Comments {
 
     static public function loadCommentsByTweetId(mysqli $connection, $getId) {
 
-        $sql = "SELECT * FROM Tweets JOIN Users ON Tweets.user_id = Users.id JOIN Comments ON Comments.tweet_id = Tweets.id WHERE tweet_id=$getId ORDER BY Comments.creation_date DESC";
+        $sql = "SELECT * FROM Tweets JOIN Comments ON Comments.tweet_id = Tweets.id JOIN Users ON Comments.user_id = Users.id WHERE tweet_id=$getId ORDER BY Comments.creation_date DESC";
         $ret = [];
         $result = $connection->query($sql);
 

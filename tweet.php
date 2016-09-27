@@ -54,7 +54,6 @@ DataBase::closeConn($conn);
 foreach ($allComments as $row) {
     $displayContnet = $row->getContent();
     $craetionDate = $row->getCreationDate();
-    var_dump($row);
 
     echo $displayContnet;
     echo '<br/>';

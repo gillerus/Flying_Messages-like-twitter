@@ -30,7 +30,7 @@ session_start();
                 ?>
                 <br/><br/><hr/>
                 <h4>--> lub zarejestruj</h4>
-                <form>
+                <form action="register.php" method="post">
                     Username: <input type="text" name="username_reg">
                     Email: <input type="text" name="email_reg">
                     Password: <input type="password" name="password_reg"><br><br>

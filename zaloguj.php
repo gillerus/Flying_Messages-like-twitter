@@ -33,3 +33,8 @@ if (isset($email) && isset($password)) {
     }
 }
 DataBase::closeConn($conn);
+
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+    exit();
+}

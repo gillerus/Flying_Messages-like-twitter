@@ -24,24 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 echo '<div class="container">';
-echo "Witaj <b>" . $_SESSION['username'] . '</b>! Oto Twoje aktualne Tweety ;) | <a href="logout.php">Wyloguj</a><br/><br/>';
+echo "Witaj <b>" . $_SESSION['username'] . '</b>! Oto Twoje aktualne Tweety ;) | <a href="logout.php">Wyloguj</a><br/>';
 
-$conn = DataBase::conn();
-$allTweets = Tweets::loadAllTweets($conn);
-DataBase::closeConn($conn);
-
-foreach ($allTweets as $row) {
-    $displayContnet = $row->getContent();
-    $craetionDate = $row->getCreationDate();
-
-    echo $displayContnet;
-    echo '<br/>';
-    echo '<a href="tweet.php?id=' . $row->getId() . '">Skomentuj</a><br>';
-    echo 'Dodany przez uzytkownika: <a href="userProfil.php?id=' . $row->getUserId() . '">' . $row->username . '</a>' . " " . $craetionDate;
-    echo '<br/><br/>';
-}
-echo '</div>';
+echo 'Profil uzytkownika: <a href="userProfil.php?id=' . $_SESSION['loggedUseerId'] . '">' . $_SESSION['username'] . '</a> | ';
+echo '<a href="messages.php">Skrzynka pocztowa</a><br/><br/>';
 ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -61,11 +49,30 @@ echo '</div>';
                 <br><br>
                 <input type="submit" value="Add new Tweet">
             </form>
-
+            <hr><br>
         </div>
 
     </body>
 </html>
+
+<?php
+$conn = DataBase::conn();
+$allTweets = Tweets::loadAllTweets($conn);
+DataBase::closeConn($conn);
+
+foreach ($allTweets as $row) {
+    $displayContnet = $row->getContent();
+    $craetionDate = $row->getCreationDate();
+
+    echo $displayContnet;
+    echo '<br/>';
+    echo '<a href="tweet.php?id=' . $row->getId() . '">Skomentuj</a><br>';
+    echo 'Dodany przez uzytkownika: <a href="userProfil.php?id=' . $row->getUserId() . '">' . $row->username . '</a>' . " " . $craetionDate;
+    echo '<br/><br/>';
+}
+echo '</div>';
+
+
 
 
 
