@@ -53,7 +53,10 @@ class Messages {
         return $this->readm;
     }
 
-    public function setReadm() {
+    public function setReadm(mysqli $connection, $id) {
+        $sql = "UPDATE Messages SET readm=1 WHERE id=$id";
+        $connection->query($sql);
+      
         $this->readm = true;
         return $this->readm;
     }
@@ -142,6 +145,52 @@ class Messages {
         }
 
         return $ret;
+    }
+
+    static public function loadSendMessage(mysqli $connection, $id) {
+
+        $sql = "SELECT * FROM Messages JOIN Users ON Users.id = Messages.reciver_id WHERE Messages.id=$id";
+        $result = $connection->query($sql);
+
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            $loadedMessages = new Messages();
+
+            $loadedMessages->id = $row['id'];
+            $loadedMessages->sender_id = $row['sender_id'];
+            $loadedMessages->reciver_id = $row['reciver_id'];
+            $loadedMessages->content = $row['content'];
+            $loadedMessages->readm = $row['readm'];
+            $loadedMessages->creation_date = $row['creation_date'];
+            $loadedMessages->username = $row['username'];
+
+            return $loadedMessages;
+        }
+        return null;
+    }
+
+    static public function loadRecivedMessage(mysqli $connection, $id) {
+
+        $sql = "SELECT * FROM Messages JOIN Users ON Users.id = Messages.sender_id WHERE Messages.id=$id";
+        $result = $connection->query($sql);
+
+        if ($result == true && $result->num_rows == 1) {
+
+            $row = $result->fetch_assoc();
+            $loadedMessages = new Messages();
+
+            $loadedMessages->id = $row['id'];
+            $loadedMessages->sender_id = $row['sender_id'];
+            $loadedMessages->reciver_id = $row['reciver_id'];
+            $loadedMessages->content = $row['content'];
+            $loadedMessages->readm = $row['readm'];
+            $loadedMessages->creation_date = $row['creation_date'];
+            $loadedMessages->username = $row['username'];
+
+            return $loadedMessages;
+        }
+        return null;
     }
 
 }

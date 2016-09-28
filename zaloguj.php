@@ -28,7 +28,7 @@ if (isset($email) && isset($password)) {
 
         header('location: index.php');
     } else {
-        $_SESSION['error'] = '<span style="color:red">Nieprawidłowy login lub hasło!</span>';
+        $_SESSION['error'] = '<img src="http://www.rtve.es/imagenes/usuarios/avatar/19126567.png" width="16"><span style="color:red"><b> Nieprawidłowy login lub hasło!</b></span>';
         header('location: login.php');
     }
 }

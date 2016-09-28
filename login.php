@@ -9,13 +9,16 @@ session_start();
         <title>Twitter_zaloguj</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
     <body>
-        <div>
-            <center>
-                <img src="http://kingofwallpapers.com/bird/bird-017.jpg" width="250">
+        <div class="container">
+            <center><br>
+                <img src="http://st.depositphotos.com/1742172/3621/v/170/depositphotos_36210739-Cartoon-rocket.jpg" width="200">
+                <br><br>
+                <h4>Witamy na stronie "Flying Messages" dołącz do naszej kosmicznej społeczności<br>
+                    aby w ekspersowym tempie wymieniać się wiadomościami!<br/>
 
-                <h4>Witamy na stronie TwetterBIRD dołącz do naszej ptasiej społeczności<br/>
                     <br/>--> zaloguj się </h4>
                 <form action="zaloguj.php" method="post">
                     Email: <input type="text" name="email">
@@ -30,13 +33,8 @@ session_start();
                 ?>
                 <br/><br/><hr/>
                 <h4>--> lub zarejestruj</h4>
-                <form action="register.php" method="post">
-                    Username: <input type="text" name="username_reg">
-                    Email: <input type="text" name="email_reg">
-                    Password: <input type="password" name="password_reg"><br><br>
-                    <input type="submit" value="Zarejestruj się">
-                </form>
-                </form>
+               
+
             </center>
         </div>
     </body>

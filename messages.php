@@ -24,21 +24,7 @@ echo '<br><br>';
 $conn = DataBase::conn();
 $allSendMessages = Messages::loadMessagesBySenderId($conn, $_SESSION['loggedUseerId']);
 DataBase::closeConn($conn);
-echo '<hr>Wyslane wiadomosci<br>';
-foreach ($allSendMessages as $row) {
-    $id = $row->getId();
-    $senderId = $row->getSenderId();
-    $reciverId = $row->getReciverId();
-    $content = $row->getContent();
-    $creationDate = $row->getCreationDate();
-    $messageRead = $row->getReadm();
-    $username = $row->username;
 
-    echo '<br>';
-//    echo "Wiadomosc:<br>";
-    echo "wyslana do: " . "$username" . " | data: " . "$creationDate";
-    echo '<br>' . '<a href="messageDetails.php?id='.$id.'">' . substr($content, 0, 10) . '</a>' . "<br>";
-}
 
 $conn = DataBase::conn();
 $allRecivedMessages = Messages::loadMessagesByReciverId($conn, $_SESSION['loggedUseerId']);
@@ -56,6 +42,26 @@ foreach ($allRecivedMessages as $row) {
     echo '<br>';
 //    echo "Wiadomosc:<br>";
     echo "przyslana przez: " . "$username" . " | data: " . "$creationDate";
-    echo '<br>' . '<a href="messageDetails.php?id='.$id.'">' . substr($content, 0, 10) . '</a>' . "<br>";
+    echo '<br>' . '<a href="messageDetails.php?id=' . $id . '&message=r">' . substr($content, 0, 10) . '</a>' . "<br>";
+    if ($messageRead == 0) {
+        echo '<div style="background-color: GreenYellow; height:30; width:30"><img src="http://image.flaticon.com/icons/png/128/27/27630.png" height="30" width="30"></div>';
+    }
+}
+
+echo '<hr>Wyslane wiadomosci<br>';
+foreach ($allSendMessages as $row) {
+    $id = $row->getId();
+    $senderId = $row->getSenderId();
+    $reciverId = $row->getReciverId();
+    $content = $row->getContent();
+    $creationDate = $row->getCreationDate();
+    $messageRead = $row->getReadm();
+    $username = $row->username;
+
+    echo '<br>';
+//    echo "Wiadomosc:<br>";
+    echo "wyslana do: " . "$username" . " | data: " . "$creationDate";
+    echo '<br>' . '<a href="messageDetails.php?id=' . $id . '&message=s">' . substr($content, 0, 10) . '</a>' . "<br>";
+    
 }
 ?>
