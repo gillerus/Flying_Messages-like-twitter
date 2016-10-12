@@ -2,6 +2,7 @@
 session_start();
 
 require 'src/database.php';
+require 'src/Users.php';
 
 if (isset($_POST['email_reg'])) {
     $allOK = true;
@@ -30,27 +31,60 @@ if (isset($_POST['email_reg'])) {
         $allOK = false;
         $_SESSION['e_pass'] = 'Podane hasla nie sa identyczne';
     }
-    
-    
-    
-    
+
+
+
+
     //sprawdzenie captcha
     $secret = "6Lf13QcUAAAAAF2BRYWRBjKue-v4vghS18nT9hg0";
     $check = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
     $answer = json_decode($check);
 
-    if ($answer->success == false){
+    if ($answer->success == false) {
         $allOK = false;
         $_SESSION['e_bot'] = 'Wypelnij captcha';
     }
 
+    $conn = DataBase::conn();
+    //czy email juz istnieje
+    $res = $conn->query("SELECT id FROM Users WHERE email='$email'");
+    DataBase::closeConn($conn);
+
+    $checkMail = $res->num_rows;
+    if ($checkMail > 0) {
+        $_SESSION['e_email'] = 'Istnieje juz konto o takim emailu';
+    }
+
+    $conn = DataBase::conn();
+    //czy email juz user
+    $res = $conn->query("SELECT id FROM Users WHERE username='$nick'");
+    DataBase::closeConn($conn);
+
+    $checkUser = $res->num_rows;
+    if ($checkUser > 0) {
+        $_SESSION['e_nick'] = 'Istnieje juz taki user';
+    }
+
 
     //WSZYSTKO OK
-        if ($allOK == true) {
-            //dodajemy gracza do bazy
-            echo 'Udana walidacja!';
-            exit();
-        }
+    if (($_SERVER['REQUEST_METHOD'] === 'POST') && ($allOK == true)) {
+        //dodajemy gracza do bazy
+        //echo 'Udana walidacja!';
+        $regUser = new Users();
+        $regUser->setUsername($nick);
+        $regUser->setEmail($email);
+        $regUser->setPassword($haslo1);
+        
+        var_dump($regUser);
+        
+        
+        
+        $conn = DataBase::conn();
+        $regUser->saveToDB($conn);
+        DataBase::closeConn($conn);
+        header('Location: login.php');
+        exit();
+    }
 }
 ?>
 
@@ -110,7 +144,7 @@ if (isset($_POST['email_reg'])) {
                     unset($_SESSION['e_bot']);
                 }
                 ?>
-                <input type="submit" value="Zarejestruj się">
+                <input type="submit" value="Zarejestruj sie">
             </form>
 
 

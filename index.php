@@ -66,8 +66,15 @@ foreach ($allTweets as $row) {
 
     echo $displayContnet;
     echo '<br/>';
-    echo '<a href="tweet.php?id=' . $row->getId() . '">Skomentuj</a><br>';
-    echo 'Dodany przez uzytkownika: <a href="userProfil.php?id=' . $row->getUserId() . '">' . $row->username . '</a>' . " " . $craetionDate;
+    echo '<a href="tweet.php?id=' . $row->getId() . '">Skomentuj</a>';
+    
+    if ($_SESSION['loggedUseerId'] === $row->getUserId()) {
+        echo ' | ';
+        echo '<a href="deleteTweet.php?id=' . $row->getId() . '">DELETE</a>';
+    }
+
+    echo '<br>Dodany przez uzytkownika: <a href="userProfil.php?id=' . $row->getUserId() . '">' . $row->username . '</a>' . " " . $craetionDate . "<br>";
+
     echo '<br/><br/>';
 }
 echo '</div>';

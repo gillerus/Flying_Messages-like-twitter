@@ -107,7 +107,7 @@ class Tweets {
 
     static public function loadTweetsByUserId(mysqli $connection, $user_id) {
 
-        $sql = "SELECT * FROM Tweets JOIN Users ON Tweets.user_id = Users.id WHERE user_id=$user_id ORDER BY creation_date Desc";
+        $sql = "SELECT * FROM Users JOIN Tweets ON Tweets.user_id = Users.id WHERE user_id=$user_id ORDER BY creation_date Desc";
         $ret = [];
         $result = $connection->query($sql);
 
@@ -130,18 +130,25 @@ class Tweets {
         return $ret;
     }
 
-    public function deleteTweet(mysqli $connection) {
+//    public function deleteTweet(mysqli $connection) {
+//
+//        if ($this->id != -1) {
+//            $sql = "DELETE FROM Tweets WHERE id=$this->id";
+//            $result = $connection->query($sql);
+//
+//            if ($result == true) {
+//                $this->id = -1;
+//                return true;
+//            }
+//            return false;
+//        }
+//        return true;
+//    }
 
-        if ($this->id != -1) {
-            $sql = "DELETE FROM Tweets WHERE id=$this->id";
-            $result = $connection->query($sql);
+    public static function deleteTweet(mysqli $connection, $id) {
 
-            if ($result == true) {
-                $this->id = -1;
-                return true;
-            }
-            return false;
-        }
+        $sql = "DELETE FROM Tweets WHERE id=$id";
+        $result = $connection->query($sql);
         return true;
     }
 

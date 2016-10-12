@@ -27,8 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo '<br/>';
         echo 'Dodany przez uzytkownika: <a href="userProfil.php?id=' . $row->getUserId() . '">' . $row->username . '</a>' . " " . $craetionDate;
         echo '<br>';
+        echo '<a href="tweet.php?id=' . $row->getId() . '">Skomentuj</a>';
+        echo ' | ';
         if ($_SESSION['loggedUseerId'] === $_GET['id']) {
-            echo '<a href="userProfil.php?id=' . $row->getUserId() . '">DELETE</a><br>';
+            echo "<a href='deleteTweet.php?user=" . $_GET['id'] . "&&id=" . $row->getId() . "'>DELETE</a><br>";
         }
         echo '<br>';
     }

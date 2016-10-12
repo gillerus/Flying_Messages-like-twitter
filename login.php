@@ -34,7 +34,7 @@ session_start();
             <div class="jumbotron" style="background: #00c0ef">
                 <center>
                     <h2 class="well" style="width: 600px; text-align: justify; color: #1087dd"><center><b>"Flying Messages"</b></center></h2>
-                    <div id="car1" class="carousel slide span8" data-interval="3000" data-pause="hover" data-wrap="true">
+                    <div id="car1" class="carousel slide span8" data-interval="5000" data-pause="hover" data-wrap="true">
 
                         <!-- slajdy -->
                         <div class="carousel-inner">
