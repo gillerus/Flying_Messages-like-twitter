@@ -28,7 +28,7 @@ if (isset($email) && isset($password)) {
 
         header('location: index.php');
     } else {
-        $_SESSION['error'] = '<div class="alert alert-danger alert-dismissible" style="width: 600px"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Nie prawodłowy email lub hasło</div>';
+        $_SESSION['error'] = '<div class="alert alert-danger alert-dismissible" style="width: 600px"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> Nieprawodłowy email lub hasło</div>';
         header('location: login.php');
     }
 }

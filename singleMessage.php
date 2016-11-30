@@ -28,33 +28,26 @@ include 'src/Messages.php';
             echo "Skrzynka prywatnych wiadomosci uzytkownika: " . $_SESSION['username'];
 
             echo '<br><br>';
-
-            $conn = database::Conn();
-
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-                $newMessage = new Messages();
-                $newMessage->setSenderId($_SESSION['loggedUseerId']);
-                $newMessage->setContent($_POST['newMessage']);
-                $newMessage->setReciverId($newMessage->checkResiverId($conn, $_POST['reciver']));
-                $newMessage->saveToDB($conn);
-                DataBase::closeConn($conn);
-            }
+            
             ?>
+            
+
+          
             Wyslij przywatna wiadomosc:<br><br>
-            <form action="#" method="post">
+            <form action="checkUser.php" method="post">
                 Do uzytkowniaka:<br>
-                <input type="text" size="30" name="reciver"><br>
+                <input type="text" size="30" name="userName"><br>
                 Tresc:<br>
                 <textarea name="newMessage" placeholder="Nawijaj ..."></textarea>
                 <br><br>
                 <input type="submit" value="Send">
             </form>
             <?php
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                echo '<p style="color: blue;">wiadomosc wyslana :)</p>';
+            if (isset($_SESSION['error'])) {
+                echo $_SESSION['error'];
+                unset($_SESSION['error']);
             }
-            ?>
+            ?>     
 
             <br><a href="messages.php">Powrot</a><br><br>
         </div>
